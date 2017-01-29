@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			#selection div {
+				border-bottom: 1px solid #ddd;
+			}
+			#selection p {
+				position: absolute; right: 1em; color: #ccc; font-size: x-large; line-height: 10px;
+			}
+ 			#canvas {
+ 				border: 1px solid #ccc; position: relative;
+ 			}
+ 			#canvas img {
+ 				max-width: 100%;
+ 				position: absolute; top: 0; left: 0;
+ 				z-index: 0;
+ 			}
+ 			#canvas img.behind {
+ 				z-index: -1 !important;
+ 			}
+		</style>
+	</head>
+	<body>
+		<div id="selection">
+			<div>
+				<p>Furniture</p>
+				<!-- <a href="#" class="decor-remove"><img data-shown="false" src="Remove_icon.png" data-category="Furniture"></a> -->
+				<a href="#" class="decor-icon"><img data-shown="false" src="Furnished_Bookshelf_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Western-Style_Bookshelf_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Japanese-Style_Shelf_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Antique_Bookshelf_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Fireplace_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Hibachi_icon.png"></a>
+			</div>
+			<div>
+				<p>Wall</p>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Furnished_Wall_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Kouyou's_Wallpaper_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Western_Style_White_Wall_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Japanese_Room_Wall_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Antique_Wall_icon.png"></a>
+			</div>
+			<div>
+				<p>Window</p>
+				<!-- <a href="#" class="decor-remove"><img data-shown="false" src="Remove_icon.png" data-category="Window"></a> -->
+				<a href="#" class="decor-icon"><img data-shown="false" src="Furnished_Windows_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Windows_with_Curtains_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Paper-sliding_Window_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Stained_Glass_Windows_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Winter_Windows_icon.png"></a>
+			</div>
+			<div>
+				<p>Interior</p>
+				<!-- <a href="#" class="decor-remove"><img data-shown="false" src="Remove_icon.png" data-category="Interior"></a> -->
+				<a href="#" class="decor-icon"><img data-shown="false" src="Five-Storied_Pagoda_Hanging_Scroll_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="School_Flag_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Special_Librarian_Appointment_Certificate_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Framed_Flower_Painting_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Flower_Hanging_Scroll_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Antique_Pendulum_Clock_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Winter_Wall_Decorations_icon.png"></a>
+			</div>
+			<div>
+				<p>Ceiling</p>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Furnished_Ceiling_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Western_Style_Ceiling_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Japanese_Room_Ceiling_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Antique_Ceiling_icon.png"></a>
+			</div>
+			<div>
+				<p>Desk</p>
+				<!-- <a href="#" class="decor-remove"><img data-shown="false" src="Remove_icon.png" data-category="Desk"></a> -->
+				<a href="#" class="decor-icon"><img data-shown="false" src="Furnished_Desk_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Desk_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Literary_Desk_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Antique_Desk_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Kotatsu_icon.png"></a>
+			</div>
+			<div>
+				<p>Floor</p>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Furnished_Carpet_Floor_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Blue_Carpet_Floor_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Tatami_Floor_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Red_Carpet_Floor_icon.png"></a>
+				<a href="#" class="decor-icon"><img data-shown="false" src="Fluffy_Winter_Carpet_icon.png"></a>
+			</div>
+		</div>
+		<div id="canvas"></div>
+		<script>
+			for(var icon of document.getElementsByClassName("decor-icon")) {
+				icon.onclick = function(event) {
+					var name = event.srcElement.attributes["src"].nodeValue.match(/.*(?=_icon.png)/)[0];
+					if(event.srcElement.attributes["data-shown"].nodeValue != "true") {
+						event.srcElement.setAttribute("data-shown","true");
+						var img= document.createElement("img");
+						img.src = name + ".png";
+						img.setAttribute("id", name);
+						if(name.indexOf("Floor") != -1 || name.indexOf("Wall") != -1) {
+							img.setAttribute("class", "behind");
+						}
+						document.getElementById("canvas").appendChild(img);
+					}
+					else {
+						event.srcElement.setAttribute("data-shown","false");
+						document.getElementById("canvas").removeChild(document.getElementById(name));
+					}
+					
+				}
+			}
+			// for(var icon of document.getElementsByClassName("decor-remove")) {
+			// 	icon.onclick = function(event) {
+			// 		console.log(event.srcElement.attributes["data-category"].nodeValue);
+			// 	}
+			// }
+		</script>
+	</body>
+</html>
