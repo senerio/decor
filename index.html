@@ -29,7 +29,7 @@
 				"window" : ["Remove", "Furnished_Windows", "Windows_with_Curtains", "Paper-sliding_Window", "Stained_Glass_Windows", "Winter_Windows"],
 				"interior" : ["Remove", "Five-Storied_Pagoda_Hanging_Scroll", "School_Flag", "Special_Librarian_Appointment_Certificate", "Framed_Flower_Painting", "Flower_Hanging_Scroll", "Antique_Pendulum_Clock", "Winter_Wall_Decorations"],
 				"ceiling" : ["Remove", "Furnished_Ceiling", "Western_Style_Ceiling", "Japanese_Room_Ceiling", "Antique_Ceiling"],
-				"desk" : ["Remove", "Furnished_Desk", "Desk", "Literary_Desk", "Antique_Desk", "Kotatsu"],
+				"desk" : ["Remove", "Furnished_Desk", "Desk", "Literary_Desk", "Antique_Desk", "Kotatsu", "Plushie's_Desk"],
 				"floor" : ["Remove", "Furnished_Carpet_Floor", "Blue_Carpet_Floor", "Tatami_Floor", "Red_Carpet_Floor", "Fluffy_Winter_Carpet"]
 			}
 			var z = -999998;
@@ -43,19 +43,20 @@
 					icon.src = item + "_icon.png";
 					icon.className = type;
 					icon.onclick = function(event) {
+						var srcElem = event.target || srcElem;
 						if(this == "Remove") {
-							for(var i of document.getElementById("office").getElementsByClassName(event.srcElement.className)) {
+							for(var i of document.getElementById("office").getElementsByClassName(srcElem.className)) {
 								i.className = i.className.replace("visible", "hidden");
 							}
 						} else {
 							var image = document.getElementById(this);
 							if( image.className.indexOf("hidden") != -1 ) {
-								if(event.srcElement.className.indexOf("wall") != -1) {
+								if(srcElem.className.indexOf("wall") != -1) {
 									for(var i of document.getElementById("office").getElementsByClassName("wall")) {
 										i.className = i.className.replace("visible", "hidden");
 									}
 								}
-								else if(event.srcElement.className.indexOf("floor") != -1) {
+								else if(srcElem.className.indexOf("floor") != -1) {
 									for(var i of document.getElementById("office").getElementsByClassName("floor")) {
 										i.className = i.className.replace("visible", "hidden");
 									}
@@ -64,7 +65,7 @@
  								}
  								image.className = image.className.replace("hidden", "visible");
 							} else {
-								if(event.srcElement.className.indexOf("wall") == -1 && event.srcElement.className.indexOf("floor") == -1) {
+								if(srcElem.className.indexOf("wall") == -1 && srcElem.className.indexOf("floor") == -1) {
  									image.setAttribute("style","z-index:" + (z-1));	
  								}
  								image.className = image.className.replace("visible", "hidden");
